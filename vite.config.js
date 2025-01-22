@@ -4,22 +4,29 @@ import laravel from 'laravel-vite-plugin';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
+            input: ['resources/scss/app.scss', 'resources/js/app.js'],
             refresh: true,
         }),
     ],
+    css: {
+        preprocessorOptions: {
+            scss: {
+                additionalData: `@use "resources/scss/_variables";`,
+            },
+        },
+    },
     build: {
         outDir: 'public/build', 
-        assetsDir: '',         
+        assetsDir: '',          
         rollupOptions: {
             output: {
                 entryFileNames: 'js/[name].js',       
                 chunkFileNames: 'js/[name]-[hash].js',
                 assetFileNames: (assetInfo) => {
                     if (assetInfo.name.endsWith('.css')) {
-                        return 'css/[name][extname]'; 
+                        return 'css/[name][extname]';
                     }
-                    return '[ext]/[name]-[hash][extname]'; 
+                    return '[ext]/[name]-[hash][extname]';
                 },
             },
         },

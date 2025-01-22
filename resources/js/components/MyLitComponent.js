@@ -11,7 +11,7 @@ class MyLitComponent extends LitElement {
 
   render() {
     return html`
-      <h1>Hello from Lit!</h1>
+      <h1>Hello from Vuong!</h1>
     `;
   }
 }
