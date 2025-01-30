@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\EditorController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WelcomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/welcome', [WelcomeController::class, 'index']);
+
+Route::get('/editor.html/{page}', [EditorController::class, 'edit'])->name('editor.edit');
+Route::post('/api/save-page', [EditorController::class, 'save'])->name('editor.save');

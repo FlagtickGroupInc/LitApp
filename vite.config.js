@@ -7,6 +7,12 @@ export default defineConfig({
             input: ['resources/scss/app.scss', 'resources/js/app.js'],
             refresh: true,
         }),
+        {
+            name: 'remove-html-comments',
+            transformIndexHtml(html) {
+                return html.replace(/<!--[\s\S]*?-->/g, '');
+            },
+        },
     ],
     css: {
         preprocessorOptions: {
@@ -16,11 +22,11 @@ export default defineConfig({
         },
     },
     build: {
-        outDir: 'public/build', 
-        assetsDir: '',          
+        outDir: 'public/build',
+        assetsDir: '',
         rollupOptions: {
             output: {
-                entryFileNames: 'js/[name].js',       
+                entryFileNames: 'js/[name].js',
                 chunkFileNames: 'js/[name]-[hash].js',
                 assetFileNames: (assetInfo) => {
                     if (assetInfo.name.endsWith('.css')) {
