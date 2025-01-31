@@ -8,18 +8,9 @@
     $manifestPath = public_path('build/manifest.json');
     $manifest = json_decode(file_get_contents($manifestPath), true);
     ?>
+    <link rel="stylesheet" href="{{ asset('/css/reset.css') }}">
     <link rel="stylesheet" href="{{ asset('build/' . $manifest['resources/scss/app.scss']['file']) }}">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        a, a:link, a:visited, a:hover, a:active {
-            text-decoration: none;
-        }
-
         body {
             font-family: 'Inter', Helvetica, Arial, sans-serif;
             display: flex;
@@ -27,7 +18,6 @@
             overflow: hidden;
         }
 
-        /* Sidebar Styles */
         .sidebar {
             width: 260px;
             background-color: #222e3c;
@@ -39,18 +29,77 @@
             position: relative;
         }
 
+        .content {
+            flex-grow: 1;
+            background-color: #f5f5f5;
+            padding: 20px;
+            position: relative;
+        }
+
         .sidebar.collapsed {
             width: 80px;
+        }
+
+        .sidebar.collapsed .sidebar-brand span,
+        .sidebar.collapsed h2 {
+            display: none;
+            opacity: 0;
+        }
+
+        .sidebar.collapsed .sidebar-brand img {
+            display: block;
+            width: 80px;
+            height: auto;
+        }
+
+        .sidebar.collapsed .menu-item span {
+            opacity: 0;
+        }
+
+        .sidebar.collapsed .sidebar-brand {
+            padding: 0.15rem 0.15rem;
+        }
+
+        .sidebar.collapsed + .content .toggle-btn,
+        .sidebar.collapsed .toggle-btn {
+            left: calc(0px - 15px);
+        }
+
+        .sidebar.collapsed .sidebar-header {
+            padding: 0;
+            margin: 0 auto 16px;
+            text-align: center;
+        }
+
+        .sidebar.collapsed .sidebar-header:not(:first-of-type) {
+            padding: 0;
+            margin: 8px auto;
+            text-align: center;
+        }
+
+        .sidebar.collapsed .sidebar-link span {
+            display: none;
+        }
+
+        .sidebar.collapsed .feather {
+            stroke-width: 2;
+            height: 24px;
+            width: 24px;
+        }
+
+        .sidebar.collapsed .sidebar-link {
+            padding: 0.625rem 0.625rem;
+            text-align: center;
+        }
+
+        .sidebar.collapsed a.sidebar-link svg {
+            margin-right: 5px;
         }
 
         .sidebar h2 {
             text-align: center;
             margin-bottom: 30px;
             transition: opacity 0.3s ease;
-        }
-
-        .sidebar.collapsed h2 {
-            opacity: 0;
         }
 
         .sidebar-nav {
@@ -65,6 +114,23 @@
             color: #ced4da;
             font-size: 0.75rem;
             padding: 1.5rem 1.5rem 0.375rem;
+        }
+
+        .sidebar-brand {
+            color: #f8f9fa;
+            display: block;
+            font-size: 1.15rem;
+            font-weight: 600;
+            padding: 1.15rem 1.5rem;
+        }
+
+        .sidebar-brand img {
+            display: none;
+        }
+
+        .sidebar-brand:hover {
+            color: #f8f9fa;
+            text-decoration: none;
         }
 
         .sidebar-item.active .sidebar-link:hover,
@@ -96,36 +162,6 @@
             margin-right: 0.75rem;
         }
 
-        .sidebar-brand {
-            color: #f8f9fa;
-            display: block;
-            font-size: 1.15rem;
-            font-weight: 600;
-            padding: 1.15rem 1.5rem;
-        }
-
-        .sidebar-brand:hover {
-            color: #f8f9fa;
-            text-decoration: none;
-        }
-
-        .menu-item span {
-            transition: opacity 0.3s ease;
-        }
-
-        .sidebar.collapsed .menu-item span {
-            opacity: 0;
-        }
-
-        /* Content Styles */
-        .content {
-            flex-grow: 1;
-            background-color: #f5f5f5;
-            padding: 20px;
-            position: relative;
-        }
-
-        /* Toggle Button Styles */
         .toggle-btn {
             width: 30px;
             height: 30px;
@@ -150,16 +186,7 @@
             color: #222e3c;
         }
 
-        .sidebar.collapsed + .content .toggle-btn {
-            left: calc(0px - 15px);
-        }
-
-        .sidebar.collapsed .toggle-btn {
-            left: calc(0px - 15px);
-        }
-
-        /* Simplebar Styles */
-        .simplebar-wrapper {
+        .sidebar-wrapper {
             height: inherit;
             max-height: inherit;
             max-width: inherit;
@@ -167,7 +194,7 @@
             width: inherit;
         }
 
-        .simplebar-content-wrapper {
+        .sidebar-content-wrapper {
             -ms-overflow-style: none;
             box-sizing: border-box !important;
             direction: inherit;
@@ -180,8 +207,8 @@
             width: auto;
         }
 
-        .simplebar-mask,
-        .simplebar-offset {
+        .sidebar-mask,
+        .sidebar-offset {
             bottom: 0;
             left: 0;
             margin: 0;
@@ -191,7 +218,7 @@
             top: 0;
         }
 
-        .simplebar-mask {
+        .sidebar-mask {
             direction: inherit;
             height: auto !important;
             overflow: hidden;
@@ -199,14 +226,13 @@
             z-index: 0;
         }
 
-        .simplebar-content {
+        .sidebar-content {
             display: flex;
             flex-direction: column;
             height: 100vh;
             padding-bottom: 0 !important;
         }
 
-        /* Utility Classes */
         .align-middle {
             vertical-align: middle !important;
         }
@@ -220,17 +246,15 @@
 </head>
 <body>
 <div class="sidebar">
-    <div class="simplebar-wrapper" style="margin: 0px;">
-        <div class="simplebar-height-auto-observer-wrapper">
-            <div class="simplebar-height-auto-observer"></div>
-        </div>
-        <div class="simplebar-mask">
-            <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
-                <div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content"
+    <div class="sidebar-wrapper" style="margin: 0;">
+        <div class="sidebar-mask">
+            <div class="sidebar-offset" style="right: 0; bottom: 0;">
+                <div class="sidebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content"
                      style="height: 100%; overflow: hidden scroll;">
-                    <div class="simplebar-content" style="padding: 0px;">
+                    <div class="sidebar-content" style="padding: 0;">
                         <a class="sidebar-brand" href="javascript:void(0);">
                             <span class="align-middle">Flagtick Group</span>
+                            <img src="{{ asset('logo/logo-short.png') }}" alt="logo-short" />
                         </a>
 
                         <ul class="sidebar-nav">
@@ -353,7 +377,6 @@
                 </div>
             </div>
         </div>
-        <div class="simplebar-placeholder" style="width: auto; height: 947px;"></div>
     </div>
 </div>
 <div class="content">

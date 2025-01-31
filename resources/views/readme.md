@@ -40,3 +40,10 @@ The Key Idea:
 Instead of hardcoding <page-component> in welcome.blade.php, use a drag-and-drop builder interface (editor.blade.php) to design the structure.
 This builder would allow the layout (or even the logic) to be exported and rendered properly in welcome.blade.php. 
 ```
+
+## 3
+```html
+<div class="sidebar">
+    <div class="simplebar-wrapper" style="margin: 0;">
+ we have simplebar-wrapper. How to named it to another name to easy to css for it?
+```
