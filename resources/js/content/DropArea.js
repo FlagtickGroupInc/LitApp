@@ -25,9 +25,9 @@ class DropArea extends LitElement {
 
     render() {
         return html`
-            <div class="drop-zone" @dragover="${this.handleDragOver}" @drop="${this.handleDrop}">
+            <div class="drop-area" @dragover="${this.handleDragOver}" @drop="${this.handleDrop}">
                 ${this.droppedItems.map(
-                    (item) => html`<div class="component-container">${item}</div>`
+                    (item) => html`<div class="drop-area-container">${item}</div>`
                 )}
             </div>
         `;
