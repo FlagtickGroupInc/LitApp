@@ -1,0 +1,11 @@
+{
+    "container": {
+        "padding": "30px",
+        "margin": "10px auto",
+        "maxWidth": "800px",
+        "backgroundColor": "#e0e0e0",
+        "borderRadius": "15px",
+        "border": "1px solid #ccc",
+        "boxShadow": "0 2px 8px rgba(0, 0, 0, 0.2)"
+    }
+}

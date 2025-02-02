@@ -1,11 +1,11 @@
 {
   "resources/js/app.css": {
-    "file": "css/app.css",
+    "file": "css/app2.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
     "css": [
-      "css/app.css"
+      "css/app2.css"
     ],
     "file": "js/app2.js",
     "isEntry": true,
@@ -13,6 +13,7 @@
   },
   "resources/scss/app.scss": {
     "file": "css/app.css",
-    "src": "resources/js/app.css"
+    "isEntry": true,
+    "src": "resources/scss/app.scss"
   }
 }

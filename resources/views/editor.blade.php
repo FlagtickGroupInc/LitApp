@@ -49,11 +49,12 @@
 </head>
 <body>
     <flagtickgroup-core-admin-sidebar></flagtickgroup-core-admin-sidebar>
-    <div class="content">
-        <button class="toggle-btn" onclick="toggleSidebar()">&#10094;</button>
-        <h1>Main Content Area</h1>
-        <p>This is where your content goes.</p>
-    </div>
+    <flagtickgroup-core-admin-drop-area></flagtickgroup-core-admin-drop-area>
+{{--    <div class="content">--}}
+{{--        <button class="toggle-btn" onclick="toggleSidebar()">&#10094;</button>--}}
+{{--        <h1>Main Content Area</h1>--}}
+{{--        <p>This is where your content goes.</p>--}}
+{{--    </div>--}}
     <script type="module" src="{{ asset('author/' . $manifest['resources/js/app.js']['file']) }}"></script>
     <script>
         function toggleSidebar() {
@@ -63,16 +64,16 @@
             toggleBtn.innerHTML = sidebar.classList.contains('collapsed') ? '&#10095;' : '&#10094;';
         }
 
-        function filterComponents() {
-            const searchQuery = document.querySelector('.search-box').value.toLowerCase();
-            const menuItems = document.querySelectorAll('.menu-item');
+        function searchComponents() {
+            let input = document.querySelector(".sidebar__search-input").value.toLowerCase();
+            let items = document.querySelectorAll(".sidebar-item");
 
-            menuItems.forEach(item => {
-                const itemName = item.getAttribute('data-name').toLowerCase();
-                if (itemName.includes(searchQuery)) {
-                    item.style.display = 'flex';
+            items.forEach(item => {
+                let text = item.querySelector("a span")?.textContent.toLowerCase() || "";
+                if (text.includes(input)) {
+                    item.classList.remove("hidden");
                 } else {
-                    item.style.display = 'none';
+                    item.classList.add("hidden");
                 }
             });
         }
