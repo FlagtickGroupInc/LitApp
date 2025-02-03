@@ -3,19 +3,19 @@ import { unsafeCSS } from 'lit';
 import droparea from './../../scss/components/droparea.scss';
 
 class DropArea extends LitElement {
-
-    static styles = css`
-        ${unsafeCSS(droparea)}
-    `;
+    static styles = css`${unsafeCSS(droparea)}`;
 
     static properties = {
         droppedItems: { type: Array },
         componentMapping: { type: Object },
+        isPublishMode: { type: Boolean },
     };
 
     constructor() {
         super();
         this.droppedItems = [];
+        this.isPublishMode = document.body.dataset.mode === 'publish';
+
         this.componentMapping = {
             'Page': '/components/page/Page.js',
             'Fragment': '/components/fragment/Fragment.js',
@@ -26,11 +26,18 @@ class DropArea extends LitElement {
     render() {
         return html`
             <div class="drop-area" @dragover="${this.handleDragOver}" @drop="${this.handleDrop}">
-                ${this.droppedItems.map(
-                    (item) => html`<div class="drop-area-container">${item}</div>`
-                )}
+                ${this.droppedItems.map(item => html`
+                    <div class="drop-area-container">${item}</div>
+                `)}
             </div>
         `;
+    }
+
+    createRenderRoot() {
+        const style = document.createElement('style');
+        style.textContent = droparea;
+        document.head.appendChild(style);
+        return this;
     }
 
     handleDragOver(e) {
@@ -49,17 +56,22 @@ class DropArea extends LitElement {
                 script.src = modulePath;
                 document.body.appendChild(script);
 
-                script.onload = () => {
+                script.onload = async () => {
+                    const tagName = componentName.toLowerCase() + '-component';
 
-                    if (!customElements.get('page-component')) {
-                        console.error('Page component not found after script load');
+                    if (!customElements.get(tagName)) {
+                        console.error(`${tagName} component not found after script load`);
                         return;
                     }
 
-                    const element = document.createElement('page-component');
-                    this.droppedItems = [...this.droppedItems, element];
+                    const element = document.createElement(tagName);
 
-                    this.requestUpdate();
+                    if (this.isPublishMode) {
+                        // TODO
+                    } else {
+                        this.droppedItems = [...this.droppedItems, element];
+                        this.requestUpdate();
+                    }
                 };
 
                 script.onerror = () => console.error(`Failed to load ${modulePath}`);
@@ -68,7 +80,6 @@ class DropArea extends LitElement {
             }
         }
     }
-
 }
 
 customElements.define('flagtickgroup-core-admin-drop-area', DropArea);

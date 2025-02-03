@@ -1,22 +1,31 @@
-import { LitElement, html, css } from 'lit';
+import {css, html, LitElement} from 'lit';
 
 class Fragment extends LitElement {
     static styles = css`
-    :host {
-      display: block;
-      background-color: #f4f4f4;
-      padding: 20px;
-      border-radius: 8px;
-    }
-  `;
-
-    render() {
-        return html`
-      <div class="content">
-        <p>This is the content area inside the container.</p>
-      </div>
+        :host {
+          display: block;
+          background-color: #f4f4f4;
+          padding: 20px;
+          border-radius: 8px;
+        }
     `;
+
+    createRenderRoot() {
+        return this;
     }
+
+    connectedCallback() {
+        super.connectedCallback();
+        this.renderLightDOM();
+    }
+
+    renderLightDOM() {
+        this.innerHTML = `
+            <div class="content">
+                <p>This is the content area inside the container.</p>
+            </div>
+        `
+    };
 }
 
 customElements.define('content-component', Fragment);

@@ -1,8 +1,5 @@
-:host {
-    width: 100%;
-}
 .drop-area {
-    width: 100%;
+    width: calc(100vw - 260px);
     height: 100vh;
     background-color: #f9f9f9;
     overflow-y: auto;

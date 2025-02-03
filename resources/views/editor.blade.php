@@ -47,14 +47,9 @@
         }
     </style>
 </head>
-<body>
+<body data-mode="author">
     <flagtickgroup-core-admin-sidebar></flagtickgroup-core-admin-sidebar>
     <flagtickgroup-core-admin-drop-area></flagtickgroup-core-admin-drop-area>
-{{--    <div class="content">--}}
-{{--        <button class="toggle-btn" onclick="toggleSidebar()">&#10094;</button>--}}
-{{--        <h1>Main Content Area</h1>--}}
-{{--        <p>This is where your content goes.</p>--}}
-{{--    </div>--}}
     <script type="module" src="{{ asset('author/' . $manifest['resources/js/app.js']['file']) }}"></script>
     <script>
         function toggleSidebar() {
