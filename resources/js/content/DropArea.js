@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { unsafeCSS } from 'lit';
 import droparea from './../../scss/components/droparea.scss';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 class DropArea extends LitElement {
     static styles = css`${unsafeCSS(droparea)}`;
