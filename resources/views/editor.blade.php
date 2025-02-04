@@ -39,17 +39,11 @@
             background-color: #fff;
             color: #222e3c;
         }
-        .content {
-            flex-grow: 1;
-            background-color: #f5f5f5;
-            padding: 20px;
-            position: relative;
-        }
     </style>
 </head>
 <body data-mode="author">
-    <fgcore-sidebar></fgcore-sidebar>
-    <fgcore-area></fgcore-area>
+    <dragged-component></dragged-component>
+    <dynamic-component></dynamic-component>
     <script type="module" src="{{ asset('author/' . $manifest['resources/js/app.js']['file']) }}"></script>
     <script>
         function toggleSidebar() {

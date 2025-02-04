@@ -81,4 +81,4 @@ class DraggedComponent extends LitElement {
     }
 }
 
-customElements.define('fgcore-sidebar', DraggedComponent);
+customElements.define('dragged-component', DraggedComponent);

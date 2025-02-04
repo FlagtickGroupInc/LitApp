@@ -79,4 +79,4 @@ class DynamicComponent extends LitElement {
     }
 }
 
-customElements.define('fgcore-area', DynamicComponent);
+customElements.define('dynamic-component', DynamicComponent);

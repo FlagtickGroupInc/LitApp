@@ -24,9 +24,7 @@ class Page extends LitElement {
 
     render() {
         return html`
-            <container-component>
-              <content-component></content-component>
-            </container-component>
+            <dynamic-component></dynamic-component>
         `;
     }
 }

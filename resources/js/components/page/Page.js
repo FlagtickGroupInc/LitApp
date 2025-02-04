@@ -12,14 +12,10 @@ class Page extends LitElement {
   `;
 
     static properties = {
-        title: { type: String },
-        description: { type: String },
     };
 
     constructor() {
         super();
-        this.title = '';
-        this.description = '';
     }
 
     createRenderRoot() {
@@ -28,9 +24,7 @@ class Page extends LitElement {
 
     render() {
         return html`
-            <container-component>
-              <content-component></content-component>
-            </container-component>
+            <dynamic-component></dynamic-component>
         `;
     }
 }
