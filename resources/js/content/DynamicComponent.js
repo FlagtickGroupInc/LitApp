@@ -1,9 +1,9 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, noChange } from 'lit';
 import { unsafeCSS } from 'lit';
 import droparea from './../../scss/components/droparea.scss';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
-class DropArea extends LitElement {
+class DynamicComponent extends LitElement {
     static styles = css`${unsafeCSS(droparea)}`;
 
     static properties = {
@@ -25,13 +25,9 @@ class DropArea extends LitElement {
     }
 
     render() {
-        return html`
-            <div class="drop-area" @dragover="${this.handleDragOver}" @drop="${this.handleDrop}">
-                ${this.droppedItems.map(item => html`
-                    <div class="drop-area-container">${item}</div>
-                `)}
-            </div>
-        `;
+        return html`<div class="drop-area" @dragover="${this.handleDragOver}" @drop="${this.handleDrop}">
+            ${this.droppedItems.length ? this.droppedItems.map(item => item ? html`${unsafeHTML(item)}` : noChange) : noChange}
+        </div>`;
     }
 
     createRenderRoot() {
@@ -70,7 +66,7 @@ class DropArea extends LitElement {
                     if (this.isPublishMode) {
                         // TODO
                     } else {
-                        this.droppedItems = [...this.droppedItems, element];
+                        this.droppedItems = [...this.droppedItems, element.outerHTML];
                         this.requestUpdate();
                     }
                 };
@@ -83,4 +79,4 @@ class DropArea extends LitElement {
     }
 }
 
-customElements.define('flagtickgroup-core-admin-drop-area', DropArea);
+customElements.define('fgcore-area', DynamicComponent);

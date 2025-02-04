@@ -12,7 +12,7 @@ export default defineConfig({
             transformIndexHtml(html) {
                 return html.replace(/<!--[\s\S]*?-->/g, '');
             },
-        },
+        }
     ],
     css: {
         preprocessorOptions: {
@@ -22,6 +22,11 @@ export default defineConfig({
         },
     },
     build: {
+        terserOptions: {
+            format: {
+                comments: false,
+            },
+        },
         outDir: 'public/author',
         assetsDir: '',
         rollupOptions: {

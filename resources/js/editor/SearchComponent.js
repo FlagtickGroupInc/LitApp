@@ -1,8 +1,12 @@
+/*
+ * Focus on neutral tones, high contrast for readability, and soft, non-distracting colors.
+ */
+
 import { LitElement, css } from 'lit';
 import { unsafeCSS } from 'lit';
 import sidebar from './../../scss/components/search.scss';
 
-class SearchEditor extends LitElement {
+class SearchComponent extends LitElement {
     static properties = {
         page: { type: String },
         content: { type: String },
@@ -38,11 +42,11 @@ class SearchEditor extends LitElement {
     renderLightDOM() {
         this.innerHTML = `
             <div class="sidebar__search">
-                <input type="text" class="sidebar__search-input" placeholder="Search menu..." onkeyup="searchComponents()">
+                <input type="text" class="sidebar__search-input" placeholder="Search component..." onkeyup="searchComponents()">
             </div>
         `;
     }
 }
 
-customElements.define('flagtickgroup-core-admin-search', SearchEditor);
+customElements.define('flagtickgroup-core-admin-search', SearchComponent);
 

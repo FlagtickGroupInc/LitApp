@@ -48,8 +48,8 @@
     </style>
 </head>
 <body data-mode="author">
-    <flagtickgroup-core-admin-sidebar></flagtickgroup-core-admin-sidebar>
-    <flagtickgroup-core-admin-drop-area></flagtickgroup-core-admin-drop-area>
+    <fgcore-sidebar></fgcore-sidebar>
+    <fgcore-area></fgcore-area>
     <script type="module" src="{{ asset('author/' . $manifest['resources/js/app.js']['file']) }}"></script>
     <script>
         function toggleSidebar() {
@@ -72,6 +72,33 @@
                 }
             });
         }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const dropArea = document.querySelector('drop-area');
+            if (dropArea) {
+                const observer = new MutationObserver(mutationsList => {
+                    mutationsList.forEach(mutation => {
+                        mutation.addedNodes.forEach(node => {
+                            if (node.nodeType === Node.COMMENT_NODE) {
+                                node.remove();
+                            }
+                        });
+
+                        mutation.removedNodes.forEach(node => {
+                            if (node.nodeType === Node.COMMENT_NODE) {
+                                node.remove();
+                            }
+                        });
+                    });
+                });
+
+                observer.observe(dropArea.shadowRoot || dropArea, {
+                    childList: true,
+                    subtree: true,
+                });
+            }
+        });
+
     </script>
 </body>
 </html>

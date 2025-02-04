@@ -2,7 +2,7 @@ import { LitElement, css } from 'lit';
 import { unsafeCSS } from 'lit';
 import sidebar from './../../scss/components/sidebar.scss';
 
-class SidebarEditor extends LitElement {
+class DraggedComponent extends LitElement {
     static properties = {
         menuItems: { type: Array },
     };
@@ -41,8 +41,8 @@ class SidebarEditor extends LitElement {
                                 <div class="sidebar-content">
                                     <ul class="sidebar-nav">
                                         ${this.menuItems.map(
-                                            (item) => `
-                                                <li class="sidebar-item draggable-item" draggable="true" data-item="${item}">
+                                            (item, index) => `
+                                                <li class="sidebar-item draggable-item ${index === 0 ? 'active' : ''}" draggable="true" data-item="${item}">
                                                     <a class="sidebar-link" href="${item.toLowerCase()}.html">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-sliders text-middle">
@@ -81,4 +81,4 @@ class SidebarEditor extends LitElement {
     }
 }
 
-customElements.define('flagtickgroup-core-admin-sidebar', SidebarEditor);
+customElements.define('fgcore-sidebar', DraggedComponent);

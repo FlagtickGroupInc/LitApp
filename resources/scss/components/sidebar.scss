@@ -1,6 +1,6 @@
 .sidebar {
     width: 260px;
-    background-color: #222e3c;
+    background-color: #252526;
     color: #fff;
     display: flex;
     height: 100%;
@@ -106,6 +106,10 @@
     text-decoration: none;
 }
 
+.sidebar-item {
+    margin: 2px;
+}
+
 .sidebar-item.active .sidebar-link:hover,
 .sidebar-item.active > .sidebar-link {
     background: linear-gradient(90deg, rgba(59, 125, 221, 0.1), rgba(59, 125, 221, 0.088) 50%, transparent);
@@ -115,9 +119,9 @@
 
 .sidebar-link,
 a.sidebar-link {
-    background: #222e3c;
+    background: #3C3C3C;
     border-left: 3px solid transparent;
-    color: rgba(233, 236, 239, 0.5);
+    color: #D4D4D4;
     cursor: pointer;
     display: block;
     font-weight: 400;
