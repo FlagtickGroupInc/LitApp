@@ -103,6 +103,30 @@
             margin-right: 5px;
         }
 
+        .sidebar.collapsed .submenu {
+            position: absolute;
+            left: 86px;
+            width: 220px;
+            background: white;
+            box-shadow: 0 .5rem 3rem .5rem rgba(0, 0, 0, .05);
+            z-index: 1000;
+        }
+
+        .sidebar.collapsed .submenu .sidebar-item {
+            margin-left: 0;
+            text-align: start;
+            align-items: flex-start;
+            display: flex;
+        }
+
+        .sidebar.collapsed .submenu .sidebar-item .sidebar-link {
+            background: transparent;
+            border-left: 0;
+            color: #adb5bd;
+            font-size: 90%;
+            font-weight: 400;
+        }
+
         .sidebar h2 {
             text-align: center;
             margin-bottom: 30px;
@@ -156,9 +180,9 @@
         }
 
         .submenu .sidebar-item .sidebar-link:hover {
-            background: transparent;
-            border-left-color: transparent;
-            color: inherit;
+            /*background: transparent;*/
+            /*border-left-color: transparent;*/
+            /*color: inherit;*/
         }
 
         .submenu .sidebar-item .sidebar-link::before {
@@ -177,7 +201,7 @@
 
         .submenu {
             list-style: none;
-            padding-left: 20px;
+            padding-left: 32px;
             display: none;
             transition: all 0.3s ease;
         }
@@ -284,10 +308,9 @@
 
         .sidebar-mask {
             direction: inherit;
-            height: auto !important;
-            overflow: hidden;
-            width: auto !important;
-            z-index: 0;
+            height: auto;
+            width: auto;
+            z-index: 10;
         }
 
         .sidebar-content {
@@ -310,12 +333,11 @@
 </head>
 <body>
 <div class="sidebar">
-    <div class="sidebar-wrapper" style="margin: 0;">
+    <div class="sidebar-wrapper">
         <div class="sidebar-mask">
-            <div class="sidebar-offset" style="right: 0; bottom: 0;">
-                <div class="sidebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content"
-                     style="height: 100%; overflow: hidden scroll;">
-                    <div class="sidebar-content" style="padding: 0;">
+            <div class="sidebar-offset">
+                <div class="sidebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content">
+                    <div class="sidebar-content">
                         <a class="sidebar-brand" href="javascript:void(0);">
                             <img src="{{ asset('logo/logo-short.png') }}" alt="logo-short" />
                             <span class="text-middle">Flagtick Group</span>
@@ -478,14 +500,19 @@
         item.addEventListener('click', function (e) {
             e.preventDefault();
             const parentItem = this.parentElement;
+            const sidebar = document.querySelector('.sidebar');
 
-            parentItem.classList.toggle('active');
-
-            document.querySelectorAll('.sidebar-item').forEach(otherItem => {
-                if (otherItem !== parentItem) {
-                    otherItem.classList.remove('active');
-                }
-            });
+            if (sidebar.classList.contains('collapsed')) {
+                console.log("Handle collapsed items");
+                parentItem.classList.toggle('active');
+            } else {
+                parentItem.classList.toggle('active');
+                document.querySelectorAll('.sidebar-item').forEach(otherItem => {
+                    if (otherItem !== parentItem) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+            }
         });
     });
 
