@@ -42,6 +42,10 @@
             width: 80px;
         }
 
+        .sidebar.collapsed .sidebar-link[data-toggle="collapse"]::after {
+            display: none;
+        }
+
         .sidebar.collapsed .sidebar-brand span,
         .sidebar.collapsed h2 {
             display: none;
