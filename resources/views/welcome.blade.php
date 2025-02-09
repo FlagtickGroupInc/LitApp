@@ -127,6 +127,11 @@
             font-weight: 400;
         }
 
+        .sidebar.collapsed .submenu .sidebar-item .sidebar-link:hover {
+            color: #518be1;
+            margin-left: 2px;
+        }
+
         .sidebar h2 {
             text-align: center;
             margin-bottom: 30px;
@@ -177,12 +182,6 @@
 
         .submenu .sidebar-item .sidebar-link {
             font-size: 90%;
-        }
-
-        .submenu .sidebar-item .sidebar-link:hover {
-            /*background: transparent;*/
-            /*border-left-color: transparent;*/
-            /*color: inherit;*/
         }
 
         .submenu .sidebar-item .sidebar-link::before {
@@ -480,6 +479,20 @@
         const toggleBtn = document.querySelector('.toggle-btn');
         sidebar.classList.toggle('collapsed');
         toggleBtn.innerHTML = sidebar.classList.contains('collapsed') ? '&#10095;' : '&#10094;';
+        if (sidebar.classList.contains('collapsed')) {
+            const activeItem = document.querySelector('.sidebar-item.active');
+            if (activeItem) {
+                const submenu = activeItem.querySelector('.submenu');
+
+                if (submenu) {
+                    const offsetTop = activeItem.getBoundingClientRect().top;
+
+                    submenu.style.top = `${offsetTop}px`;
+                    submenu.style.left = `86px`;
+                    submenu.style.display = 'block';
+                }
+            }
+        }
     }
 
     function filterComponents() {
@@ -501,10 +514,14 @@
             e.preventDefault();
             const parentItem = this.parentElement;
             const sidebar = document.querySelector('.sidebar');
+            const submenu = parentItem.querySelector('.submenu');
 
             if (sidebar.classList.contains('collapsed')) {
-                console.log("Handle collapsed items");
                 parentItem.classList.toggle('active');
+
+                const offsetTop = this.getBoundingClientRect().top;
+                submenu.style.top = `${offsetTop}px`;
+                submenu.style.left = `86px`;
             } else {
                 parentItem.classList.toggle('active');
                 document.querySelectorAll('.sidebar-item').forEach(otherItem => {
